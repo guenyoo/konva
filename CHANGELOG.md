@@ -5,32 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [new version][unreleased]
 
-### Added
-* Show a warning when a stage has too many layers
-* Show a warning on duplicate ids
-* Show a warning on weird class in `Node.create` parsing from JSON
-* Show a warning for incorrect value for component setters. 
-
-### Changed
-* Fixes inconsistent `layer.setSize()` method. Now it has same arguments as any container.
-* Full rewrite to Typescript with tons of refactoring and small optimizations. The public API should be 100% the same
-* Fixed `patternImage` and `radialGradient` for `Konva.Text`
-* `Konva.Util._isObject` is renamed to `Konva.Util._isPlainObject`.
-* A bit changed behavior of `removeId` (private method), not it doesn't clear node ref, of id is changed.
-* simplified `batchDraw` method (it doesn't use `Konva.Animation`) now.
-* `id` and `name` properties defaults are empty strings, not `undefined`
-
-### Removed
-* `Konva.Util.addMethods`
-* `Konva.Util._removeLastLetter`
-* `Konva.Util._getImage`
-* `Konv.Util._getRGBAString`
-* Removed polyfill for `requestAnimationFrame`. 
-
-### Fixed
-
-* Better mouse support on mobile devices (yes, that is possible to connect mouse to mobile)
-
 ## [2.6.0][2018-12-14]
 
 ### Changed
@@ -44,7 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-* `getKerning` TextPath API is deprecated. Use `kerningFunc` instead.
+* getKerning TextPath API is deprecated. Use "kerningFunc" instead.
 
 ## [2.5.1][2018-11-08]
 

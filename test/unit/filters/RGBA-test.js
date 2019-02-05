@@ -1,6 +1,6 @@
 suite('RGBA', function() {
   // ======================================================
-  test.skip('colorize basic', function(done) {
+  test('colorize basic', function(done) {
     var data = [
       {
         color: '#2a6511',

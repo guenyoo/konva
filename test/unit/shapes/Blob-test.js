@@ -111,6 +111,8 @@ suite('Blob', function() {
     layer.add(blob);
     stage.add(layer);
 
-    cloneAndCompareLayer(layer, 150);
+    if (!window.isPhantomJS) {
+      cloneAndCompareLayer(layer, 100);
+    }
   });
 });

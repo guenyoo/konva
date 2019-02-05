@@ -114,7 +114,6 @@ suite('Line', function() {
 
   // ======================================================
   test('add line with shadow', function() {
-    Konva.pixelRatio = 1;
     var stage = addStage();
     var layer = new Konva.Layer();
 
@@ -154,12 +153,10 @@ suite('Line', function() {
     context.lineTo(340, 23);
 
     context.stroke();
-    // context.fill();
+    context.fill();
     context.restore();
 
-    Konva.pixelRatio = undefined;
-
-    compareLayerAndCanvas(layer, canvas, 50);
+    compareLayerAndCanvas(layer, canvas, 5);
 
     var trace = layer.getContext().getTrace();
 
@@ -313,7 +310,6 @@ suite('Line', function() {
   });
 
   test('line caching', function() {
-    // Konva.pixelRatio = 1;
     var stage = addStage();
     var layer = new Konva.Layer();
     var blob = new Konva.Line({
@@ -334,8 +330,7 @@ suite('Line', function() {
     stage.add(layer);
     stage.add(layer2);
     layer2.hide();
-    compareLayers(layer, layer2, 100);
-    // Konva.pixelRatio = undefined;
+    compareLayers(layer, layer2);
   });
 
   test('updating points with old mutable array should trigger recalculations', function() {

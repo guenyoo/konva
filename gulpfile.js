@@ -9,7 +9,6 @@ var connect = require('gulp-connect');
 var jscpd = require('gulp-jscpd');
 var eslint = require('gulp-eslint');
 var gutil = require('gulp-util');
-var ts = require('gulp-typescript');
 
 var fs = require('fs');
 var NodeParams = fs
@@ -86,11 +85,10 @@ var sourceFiles = [
   'src/shapes/Transformer.js'
 ];
 
-var tsProject = ts.createProject('tsconfig.json');
-
 function build() {
   return gulp
-    .src(['./konva.js'])
+    .src(sourceFiles)
+    .pipe(concat('konva-dev.js'))
     .pipe(replace('@@shapeParams', ShapeParams))
     .pipe(replace('@@nodeParams', NodeParams))
     .pipe(replace('@@containerParams', ContainerParams))

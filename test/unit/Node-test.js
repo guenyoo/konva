@@ -118,24 +118,21 @@ suite('Node', function() {
     assert.equal(layer.getAbsoluteOpacity(), 0.5);
   });
 
-  test('warn on duplicate id', function() {
+  test.skip('warn on duplicate id', function() {
     var oldWarn = Konva.Util.warn;
     var called = false;
     Konva.Util.warn = function() {
       called = true;
-    };
-    var circle1 = new Konva.Circle({
+    }
+    var circle = new Konva.Circle({
       id: 'circle'
     });
-    var circle2 = new Konva.Circle({
+    var circle = new Konva.Circle({
       id: 'circle'
     });
-
     assert.equal(called, true);
     Konva.Util.warn = oldWarn;
-    circle1.destroy();
-    circle2.destroy();
-  });
+  })
 
   // ======================================================
   test('transform cache', function() {
@@ -459,12 +456,12 @@ suite('Node', function() {
   // ======================================================
   test('test offset attr change', function() {
     /*
-     * the premise of this test to make sure that only
-     * root level attributes trigger an attr change event.
-     * for this test, we have two offset properties.  one
-     * is in the root level, and the other is inside the shadow
-     * object
-     */
+         * the premise of this test to make sure that only
+         * root level attributes trigger an attr change event.
+         * for this test, we have two offset properties.  one
+         * is in the root level, and the other is inside the shadow
+         * object
+         */
     var stage = addStage();
     var layer = new Konva.Layer();
     var rect = new Konva.Rect({
@@ -580,14 +577,14 @@ suite('Node', function() {
     assert.equal(rect.getShadowColor(), 'black');
     assert.equal(clone.getShadowColor(), 'black');
 
-    assert.equal(clone.id() == '', true, 'do not clone id');
+    assert.equal(clone.id() == undefined, true, 'do not clone id');
 
     clone.setShadowColor('green');
 
     /*
-     * Make sure that when we change a clone object attr that the rect object
-     * attr isn't updated by reference
-     */
+         * Make sure that when we change a clone object attr that the rect object
+         * attr isn't updated by reference
+         */
 
     assert.equal(rect.getShadowColor(), 'black');
     assert.equal(clone.getShadowColor(), 'green');
@@ -1157,24 +1154,19 @@ suite('Node', function() {
     stage.add(layer);
 
     /*
-     * add custom attr that points to self.  The setAttrs method should
-     * not inifinitely recurse causing a stack overflow
-     */
+         * add custom attr that points to self.  The setAttrs method should
+         * not inifinitely recurse causing a stack overflow
+         */
     circle.setAttrs({
       self: circle
     });
 
     /*
-     * serialize the stage.  The json should succeed because objects that have
-     * methods, such as self, are not serialized, and will therefore avoid
-     * circular json errors.
-     */
-    // console.log(stage.children);
-    // return;
+         * serialize the stage.  The json should succeed because objects that have
+         * methods, such as self, are not serialized, and will therefore avoid
+         * circular json errors.
+         */
     var json = stage.toJSON();
-
-    // make sure children are ok after json
-    assert.equal(stage.children[0], layer);
   });
 
   // ======================================================
@@ -1263,7 +1255,7 @@ suite('Node', function() {
 
     layer.add(circle);
     stage.add(layer);
-    assert.equal(circle.getName(), '');
+    assert.equal(circle.getName(), undefined);
 
     circle.addName('foo');
     assert.equal(circle.getName(), 'foo');
@@ -1673,7 +1665,7 @@ suite('Node', function() {
 
     var stage = addStage();
     var layer = new Konva.Layer({
-      name: 'layerName'
+      name: 'layerName',
     });
     var group = new Konva.Group({
       name: 'groupName',
@@ -1689,7 +1681,7 @@ suite('Node', function() {
       width: side,
       height: side,
       fill: 'red',
-      name: 'rectName'
+      name: 'rectName',
     });
     var marker = new Konva.Rect({
       x: side,
@@ -1745,7 +1737,7 @@ suite('Node', function() {
       width: 50,
       height: 50,
       fill: 'red',
-      name: 'rectName'
+      name: 'rectName',
     });
 
     group.add(rect);
@@ -1996,8 +1988,8 @@ suite('Node', function() {
     });
 
     /*
-     * test regular on and off
-     */
+         * test regular on and off
+         */
     assert.equal(circle.eventListeners['click'], undefined);
 
     circle.on('click', function() {});
@@ -2010,8 +2002,8 @@ suite('Node', function() {
     assert.equal(circle.eventListeners['click'], undefined);
 
     /*
-     * test name spacing
-     */
+         * test name spacing
+         */
     circle.on('click.foo', function() {});
     assert.equal(circle.eventListeners['click'].length, 1);
 
@@ -2027,8 +2019,8 @@ suite('Node', function() {
     assert.equal(circle.eventListeners['click'], undefined);
 
     /*
-     * test remove all events in name space
-     */
+         * test remove all events in name space
+         */
     circle.on('click.foo', function() {});
     circle.on('click.foo', function() {});
     circle.on('touch.foo', function() {});
@@ -2410,22 +2402,22 @@ suite('Node', function() {
     });
 
     /*
-     *        Stage(0)
-     *          |
-     *        Layer(1)
-     *          |
-     *    +-----+-----+
-     *    |           |
-     *   G1(2)       G2(3)
-     *    |           |
-     *    +       +---+---+
-     *    |       |       |
-     *   S1(4)   G3(5)  G4(6)
-     *            |
-     *            +
-     *            |
-     *           S2(7)
-     */
+         *        Stage(0)
+         *          |
+         *        Layer(1)
+         *          |
+         *    +-----+-----+
+         *    |           |
+         *   G1(2)       G2(3)
+         *    |           |
+         *    +       +---+---+
+         *    |       |       |
+         *   S1(4)   G3(5)  G4(6)
+         *            |
+         *            +
+         *            |
+         *           S2(7)
+         */
 
     group1.add(shape1);
     group2.add(group3);
@@ -2593,7 +2585,7 @@ suite('Node', function() {
   test('load stage using json', function() {
     var container = addContainer();
     var json =
-      '{"attrs":{"width":578,"height":200},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{},"className":"Group","children":[{"attrs":{"x":289,"y":100,"radius":70,"fill":"green","stroke":"black","strokeWidth":4,"name":"myCircle","draggable":true},"className":"Circle"}]}]}]}';
+      '{"attrs":{"width":578,"height":200},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{},"className":"Group","children":[{"attrs":{"x":289,"y":100,"radius":70,"fill":"green","stroke":"black","strokeWidth":4,"name":"myCircle","draggable":true},"className":"Shape"}]}]}]}';
     var stage = Konva.Node.create(json, container);
 
     assert.equal(stage.toJSON(), json);
@@ -2608,14 +2600,6 @@ suite('Node', function() {
     var clone = Konva.Node.create(node.toObject());
 
     assert.deepEqual(node.toObject(), clone.toObject());
-  });
-
-  test('make sure we can create non existing node type', function() {
-    var json =
-      '{"attrs":{},"className":"Layer","children":[{"attrs":{},"className":"Group","children":[{"attrs":{"x":289,"y":100,"radius":70,"fill":"green","stroke":"black","strokeWidth":4,"name":"myCircle","draggable":true},"className":"WeirdShape"}]}]}';
-    var layer = Konva.Node.create(json);
-
-    assert.deepEqual(layer.find('Shape').length, 1);
   });
 
   // ======================================================
@@ -3061,44 +3045,6 @@ suite('Node', function() {
     assert.equal(Konva.names.myRect2, undefined);
     assert.equal(Konva.shapes[circleColorKey], undefined);
     assert.equal(Konva.shapes[rectColorKey], undefined);
-  });
-
-  // ======================================================
-  test('destroy should remove only required shape from ids regestry', function() {
-    var stage = addStage();
-    var layer = new Konva.Layer();
-    var circle = new Konva.Circle({
-      x: stage.getWidth() / 2,
-      y: stage.getHeight() / 2,
-      radius: 70,
-      fill: 'green',
-      stroke: 'black',
-      strokeWidth: 4,
-      id: 'shape'
-    });
-
-    var rect = new Konva.Rect({
-      x: 300,
-      y: 100,
-      width: 100,
-      height: 50,
-      fill: 'purple',
-      stroke: 'black',
-      strokeWidth: 4,
-      id: 'shape'
-    });
-
-    layer.add(circle);
-    layer.add(rect);
-    stage.add(layer);
-
-    // last shape is registered
-    assert.equal(Konva.ids.shape, rect);
-
-    // destroying circle should not remove rect from regiter
-    circle.destroy();
-
-    assert.equal(Konva.ids.shape, rect);
   });
 
   // ======================================================
@@ -3788,19 +3734,5 @@ suite('Node', function() {
 
     assert.equal(layer.getChildren().length, 1);
     assert.equal(rect3.getZIndex(), 0);
-  });
-
-  test('show warning when we are trying to use non-objects for component setters', function() {
-    var stage = addStage();
-
-    var callCount = 0;
-    var oldWarn = Konva.Util.warn;
-    Konva.Util.warn = function() {
-      callCount += 1;
-    };
-
-    stage.scale(0.5);
-    assert.equal(callCount, 1);
-    Konva.Util.warn = oldWarn;
   });
 });

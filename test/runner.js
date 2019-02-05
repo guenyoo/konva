@@ -144,10 +144,6 @@ function compareCanvases(canvas1, canvas2, tol) {
     b.appendChild(canvas2);
     c.appendChild(diffCanvas);
 
-    var base64 = diffCanvas.toDataURL();
-    console.error('Diff image:');
-    console.error(base64);
-
     div.appendChild(b);
     div.appendChild(c);
     konvaContainer.appendChild(div);
@@ -227,18 +223,9 @@ beforeEach(function() {
 Konva.UA.mobile = false;
 
 afterEach(function() {
-  var isFailed = this.currentTest.state == 'failed';
-  var isManual = this.currentTest.parent.title === 'Manual';
-
-  Konva.stages.forEach(function(stage) {
-    clearTimeout(stage.dblTimeout);
-  });
-
-  if (!isFailed && !isManual) {
-    Konva.stages.forEach(function(stage) {
-      stage.destroy();
-    });
-  }
+  //    Konva.stages.forEach(function(stage) {
+  //        stage.destroy();
+  //    });
 });
 
 Konva.Stage.prototype.simulateMouseDown = function(pos) {

@@ -11,12 +11,13 @@ suite('Transformer', function() {
       draggable: true,
       width: 100,
       height: 100,
-      fill: 'yellow'
+      fill: 'yellow',
     });
     layer.add(rect);
 
     var tr = new Konva.Transformer({
-      node: rect
+      node: rect,
+      textOffsetY: 15,
     });
     layer.add(tr);
 
@@ -46,11 +47,11 @@ suite('Transformer', function() {
       draggable: true,
       width: 100,
       height: 100,
-      fill: 'yellow'
+      fill: 'yellow',
     });
     layer.add(rect);
 
-    var tr = new Konva.Transformer();
+    var tr = new Konva.Transformer({ node: rect, textOffsetY: 15 });
     layer.add(tr);
     tr.attachTo(rect);
 

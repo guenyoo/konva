@@ -21,7 +21,9 @@ suite('Filter', function() {
     circle.blurRadius(0);
     layer.draw();
 
-    cloneAndCompareLayer(layer, 50);
+    if (!window.isPhantomJS) {
+      cloneAndCompareLayer(layer, 50);
+    }
     Konva.pixelRatio = 1;
   });
 });
